@@ -1,0 +1,20 @@
+select *
+from `marketing-data-362118.mdata.data`;
+
+
+/*Which  channels are under performing?*/
+Select Max(NumWebPurchases) as webpurchase, Max(NumCatalogPurchases) as catalogpurchases, Max(NumStorePurchases) as storepurchases
+from `marketing-data-362118.mdata.data`;
+
+
+/*Which products are best performing?*/
+SELECT sum(MntWines) as wines,sum(MntFruits) as fruits,sum(MntMeatProducts)as meat,sum(MntFishProducts) as fish,sum(MntSweetProducts) as sweet,sum(MntGoldProds) as Gold
+from `marketing-data-362118.mdata.data`;
+
+
+/*Average Customer Profile*/
+Select Distinct Marital_Status, COUNT(Marital_Status) OVER(PARTITION BY Marital_Status) as countofstatus, (Round(AVG(_Income_) OVER(PARTITION BY Marital_Status))) as averageincomepermaritalstatus, Round(AVG(Kidhome) OVER(PARTITION BY Marital_Status)) as numberofkids, Round(AVG(Year_Birth) OVER(PARTITION BY Marital_Status)) as avg_birth, Country
+from `marketing-data-362118.mdata.data`
+Where _Income_ is NOT NULL
+ORDER BY country desc;
+
